@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,19 @@ public class UserController {
 		response.setResult(userInfo);
 		return response;
 	}
+
+	@PostMapping("/update")
+	public Response<UserInfo> updateUser(@RequestBody UserInfo userInfo) {
+		int result = userService.updateUser(userInfo);
+		return new Response<>();
+	}
+
+	@PutMapping("/del/{id}")
+	public Response<UserInfo> deleteUserById(@PathVariable("id") Long userId) {
+		int result = userService.deleteUserById(userId);
+		return new Response<>();
+	}
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.makesailing.neo.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,9 +64,43 @@ public class UserControllerTest extends BaseControllerTest {
     * 
     */ 
     @Test
-    public void testGetUserById() throws Exception { 
-    //TODO: Test goes here... 
-    } 
-    
-        
-    } 
+    public void testGetUserById() throws Exception {
+        String response = mockMvc.perform(get("/user/get/10"))
+            .andExpect(status().isOk())
+            .andDo(print()).andReturn().getResponse().getContentAsString();
+        Assert.assertNotNull(response);
+        System.out.println(response);
+    }
+
+
+    /**
+     *
+     * Method: updateUser(@RequestBody UserInfo userInfo)
+     *
+     */
+    @Test
+    public void testUpdateUser() throws Exception {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(10L);
+        userInfo.setUserName("李四33");
+        String userJson = JSON.toJSONString(userInfo);
+
+        String response = mockMvc.perform(post("/user/update").contentType(MediaType.APPLICATION_JSON_UTF8).content(userJson))
+            .andExpect(status().isOk())
+            .andDo(print()).andReturn().getResponse().getContentAsString();
+        Assert.assertNotNull(response);
+        System.out.println(response);
+    }
+
+    /**
+     *
+     * Method: deleteUserById(@PathVariable("id") Long userId)
+     *
+     */
+    @Test
+    public void testDeleteUserById() throws Exception {
+        //TODO: Test goes here...
+    }
+
+
+}

@@ -16,4 +16,8 @@ public interface UserService {
 
 	UserInfo getUserById(Long userId);
 
+	int deleteUserById(Long userId);
+
+	int updateUser(UserInfo userInfo);
+
 }

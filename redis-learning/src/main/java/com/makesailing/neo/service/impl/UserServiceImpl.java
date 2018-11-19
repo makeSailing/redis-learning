@@ -20,12 +20,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Long addUser(UserInfo userInfo) {
-		return userInfoMapper.insertSelective(userInfo);
+		return userInfoMapper.insertSelective(userInfo) == 1 ? userInfo.getUserId() : null;
 	}
 
 	@Override
 	public UserInfo getUserById(Long userId) {
 		return userInfoMapper.selectByPrimaryKey(userId);
+	}
+
+	@Override
+	public int deleteUserById(Long userId) {
+		return userInfoMapper.deleteByPrimaryKey(userId);
+	}
+
+	@Override
+	public int updateUser(UserInfo userInfo) {
+		return userInfoMapper.updateByPrimaryKeySelective(userInfo);
 	}
 }
 
